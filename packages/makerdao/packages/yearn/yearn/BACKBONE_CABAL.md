@@ -26,6 +26,15 @@ etc <br>
 #### TL;DR - Users can opt in and send transactions to YCabal and in return for not having to pay for gas for their transaction we batch process it and take the arbitrage profit from it. Risk by inventory price risk is carried by a Vault, where Vault depositers are returned the profit the YCabal realizes
 
 
+## Background
+
+Preliminary estimates obtained from MEV-Inspect show the following lower bounds:
+
+10k of 443k blocks analyzed were wasted on inefficient MEV extraction
+bots extracted 0.34 ETH of MEV per block through arbitrage and liquidations
+18.7% of MEV extracted by bots is paid to miners through gas fees which makes up 3.7% of all transaction fees
+
+
 ## Efficiency by Aggregation
 
 By leveraging batching, miner transaction flow, and providing additional performant utilities (e.g. faster calculations for finalizing),
