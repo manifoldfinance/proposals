@@ -8,7 +8,7 @@
 Proposal: YCabal
 Project: SushiSwap / DEX's
 Status: Active
-Version: Draft 0.3.0
+Version: Draft 0.4.0
 Timeframe: 60d
 </pre>
 
@@ -105,6 +105,12 @@ Additional Disclosures forthcoming  <br>
 
 Proposed end-user transaction example for interacting with the YCabal
 
+> NOTE: Since the JSON-RPC spec allows responses to be returned in a different order than sent,
+> we need a mechanism for choosing a canonical id from a list that 
+> doesn't depend on the order. This chooses the "minimum" id by an arbitrary
+> ordering: the smallest string if possible, otherwise the smallest number, otherwise null.
+ 
+ 
 ```jsx
 order = {
 	Give: ETH, 
@@ -163,6 +169,7 @@ If someone front runs the transaction sent by the Cabal:
 
 1. They pay for the gas while post confirmation of transaction the fees for order1 goes to the relayer in the signed order.
 2. They lose 5% in slippage as our real user does. 
+
 
 ## Engine
 
