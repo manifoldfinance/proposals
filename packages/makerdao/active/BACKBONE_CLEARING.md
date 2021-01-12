@@ -40,7 +40,7 @@ Settlement is the process of applying trades to user balances. The
 naive approach is to apply the following for each trade
 
 quantity := trade.quantity
-cost := trade.quantity * trade.price
+cost := trade.quantity \* trade.price
 
 buyer_quote_balance -= cost
 seller_quote_balance += cost
@@ -65,17 +65,17 @@ balances directly to the user balances.
 
 temporary_balances = {}
 for (trade in trades) {
-  quantity := trade.quantity
-  cost := trade.quantity * trade.price
-  temporary_balances[trade.buyer]['quote'] -= cost
-  temporary_balances[trade.buyer]['base'] += quantity
-  Temporary_balances[trade.seller]['quote'] += cost
-  temporary_balances[trade.seller]['base'] -= quantity
+quantity := trade.quantity
+cost := trade.quantity \* trade.price
+temporary_balances[trade.buyer]['quote'] -= cost
+temporary_balances[trade.buyer]['base'] += quantity
+Temporary_balances[trade.seller]['quote'] += cost
+temporary_balances[trade.seller]['base'] -= quantity
 }
 
 for (user in keys(temporary_balances)) {
-  real_balances[user]['quote'] += temporary_balances[user]['quote']
-  real_balances[user]['base'] += temporary_balances[user]['base']
+real_balances[user]['quote'] += temporary_balances[user]['quote']
+real_balances[user]['base'] += temporary_balances[user]['base']
 }
 
 In the above pseudocode, temporary_balances is what the BACKBONE refers to
@@ -143,7 +143,7 @@ The balance update can only be applied if it fits within the trading
 limit. The pseudocode for verifying a staged balance update is the
 following.
 
-/* limit does not apply for deposits / widthdraws */
+/_ limit does not apply for deposits / widthdraws _/
 quote_qty := staged.quote_balance + total_quote_withdraws -
 total_quote_deposits
 base_qty := staged.base_balance + total_base_withdraws -
@@ -153,29 +153,29 @@ quote_qty += limit.quote_shift
 base_qty += limit.base_shift
 
 if (quote_qty < limit.min_quote_qty)
-  REVERT;
+REVERT;
 if (base_qty < limit.min_base_qty)
-  REVERT;
+REVERT;
 
 if (base_qty >= 0 && quote_qty >= 0)
-  COMMIT;
+COMMIT;
 if (base_qty <= 0 && quote_qty <= 0)
-  REVERT;
+REVERT;
 
-/* Long position */
+/_ Long position _/
 if (base_qty > 0) {
-  current_price := (-quote_qty * 100000000) / base_qty;
-  if (current_price <= limit.max_long_price)
-    COMMIT;
-  REVERT;
+current_price := (-quote_qty \* 100000000) / base_qty;
+if (current_price <= limit.max_long_price)
+COMMIT;
+REVERT;
 }
 
-/* Short position */
+/_ Short position _/
 else {
-  current_price := (quote_qty * 100000000) / -base_qty;
-  if (current_price >= asset_state.min_short_price)
-    COMMIT;
-  REVERT;
+current_price := (quote_qty \* 100000000) / -base_qty;
+if (current_price >= asset_state.min_short_price)
+COMMIT;
+REVERT;
 }
 
 ## Deposits

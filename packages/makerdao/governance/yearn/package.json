@@ -1,0 +1,8 @@
+{
+  "name": "yearn-finance-yips",
+  "version": "1.0.0",
+  "description": "YIPs for Yearn Finance",
+  "main": "index.json",
+  "license": "CC-0",
+  "private": false
+}

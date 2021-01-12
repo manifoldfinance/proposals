@@ -3,8 +3,7 @@ name: Proposals and Design Documentation
 about: Strategies, Proposals, Governance, etc
 ---
 
-
-## Manifold Proposals 
+## Manifold Proposals
 
 Proposals have 3 major stages
 
@@ -12,7 +11,30 @@ Proposals have 3 major stages
 
 2. Formal Procedure Stage
 
+3. Execution and Operational
 
+### Governance Procedures
+
+> Ref. files for other projects
+
+```
+├── aave
+│   ├── aip-X.md
+│   └── package.json
+├── makerdao
+│   ├── General-MIP-Template.md
+│   ├── Technical-MIP-Template.md
+│   ├── mip0.md
+│   └── package.json
+├── mev
+│   ├── FRP-template.md
+│   └── package.json
+└── yearn
+    ├── BACKBONE_CABAL.md
+    ├── YIP_template.md
+    └── package.json
+
+```
 
 ## Legal Disclaimer
 
@@ -50,7 +72,6 @@ ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS Document(s), WHETHER BASED
 ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR
 NOT THE OTHER PARTICIPANT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
-## License 
+## License
 
 CC-2.5 ND-NC

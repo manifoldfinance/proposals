@@ -1,0 +1,8 @@
+{
+  "name": "makerdao-governance",
+  "version": "1.0.0",
+  "description": "makerdao MIPs",
+  "main": "index.json",
+  "license": "SEE LICENSE FROM MAKERDAO",
+  "private": false
+}

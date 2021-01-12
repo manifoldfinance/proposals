@@ -1,0 +1,8 @@
+{
+  "name": "aave-governance",
+  "version": "1.0.0",
+  "description": "aave AIP's",
+  "main": "index.json",
+  "license": "CC-0",
+  "private": false
+}
