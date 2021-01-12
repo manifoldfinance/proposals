@@ -1,0 +1,23 @@
+{
+  "name": "@manifoldfinance/proposals",
+  "version": "1.0.0",
+  "description": "--- name: Proposals and Design Documentation about: Strategies, Proposals, Governance, etc ---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manifoldfinance/proposals.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manifoldfinance/proposals/issues"
+  },
+  "homepage": "https://github.com/manifoldfinance/proposals#readme",
+  "devDependencies": {
+    "semantic-release": "^17.3.1"
+  }
+}
