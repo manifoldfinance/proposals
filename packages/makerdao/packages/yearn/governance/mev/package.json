@@ -1,0 +1,7 @@
+{
+  "name": "mev-proposals",
+  "version": "1.0.0",
+  "description": "MEV Proposals ",
+  "main": "index.json",
+  "license": "CC-0"
+}
