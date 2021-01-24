@@ -178,8 +178,101 @@ Orders are sorted based on their price, and order ID. Order IDs are generated at
 is the only part of the matching engine that is time-dependent. However, the oldest order IDs
 are matched first so there is no incentive to post an order ahead of someone else’s.
 
+
+
+
+
+
+#### Relative mining gain
+
+(RMG) as the objective function for blockchain mining:
+
+$$
+R M G=E\left[\lim _{T \rightarrow \infty} \frac{\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(a)}}{\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(a)}+\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(h)}}\right]
+$$
+
+
+#### Tuple of rewards issued in block interval.
+$$
+\left(r_{t}^{(a)}, r_{t}^{(h)}\right)
+$$
+
+The tuple of rewards issued in the block interval $$ t,  T $$ is the  size of the observing window. The objective of the adversary is to maximize this relative mining gain.
+
+
+A **mined block interval** is different from a valid block interval. A valid block interval separates two valid blocks that are ultimately adopted by the
+bl ockchain. 
+
+The average duration of a valid block interval is a constant in many blockchain systems (e.g., 10 min in bitcoin). The average duration of the **valid block interval** is deﬁned by the system designer and  its constancy is maintained by adjusting the mining target. A mined block interval separated two mined (by either the adversary of the honest network), regardless of whether the blocks becomes valid later.
+
+- valid block interval
+- mined block interval
+
+
+### Defining 'driver' nodes 
+
+> These are points in the network graph in which they have a critical position 
+
+$$
+\frac{d m (t)}{d t}=A m (t)+B u (t)
+$$
+
+Where $m (t)=\left(m_{1}(t), \ldots m_{N}(t)\right)^{T}$  are the balances of the  mining addresses of the system,  $A$ is an $N \times N$ matrix that defines the 
+strength of the  economic  relationships between miners. 
+
+$B$ is an $N \times M(M \leq N)$ matrix that identifies which of the 
+(driver) nodes are controlled by an external controller via a time-dependent vector 
+
+$u (t)=\left(u_{1}(t), \ldots u_{M}(t)\right)^{T}$
+
+This analysis showes that the minimum number of driver nodes needed to control the system described above is exactly the set of ’unmatched nodes’ for a ’maximum matching’ as long as all there are paths from the unmatched nodes to the matched ones. A ’maximum matching’ is the maximal set of edges that do not share start or end nodes, while a node is said to be matched if an edge in the ’maximum matching’ points to it; otherwise, it is said to be unmatched. Our results yield that under this model and given the topology of the transaction network, 1, 945 nodes of the GWCC would need to be controlled (47% of the hashing power of the GWCC), in order to potentially have full control over it.
+
+### Block Extrracted Value / Miner Extracted Value 
+
+Transactions are not actually independent: it may be necessary to include some
+less-profitable or even unprofitable transactions to increase the profitability
+of a subsequent transaction.
+
+For example, since transactions include a per-sender sequence number, and these
+must be applied in strictly incrementing order, the miner could be faced with
+one high-cost low-income transaction (from=ABC seqnum=5), followed by a low-cost
+high-income transaction (from=ABC seqnum=6). The miner cannot legally include
+the second message without also including the first. They must evaluate the
+profitability of the two as an indivisible pair.
+
+Adjusting the order of different-sender messages may improve profits. Since
+exceptions forfeit all gas to the miner, if there is an ordering of messages
+that forces an exception, the miner would prefer exception-causing sequences
+over ones that complete normally. Likewise, a sequence that causes execution to
+consume more gas will yield more income than one which completes quickly (and
+more profit, assuming the actual CPU costs are low). So, more sophisticated
+miners may do more work: computing an optimal ordered subset, not merely an
+optimal subset.
+
+The costs of doing this analysis must not exceed the gains to be had. Finding an
+optimal ordered subset is even more expensive (O(n!)) than an unordered subset,
+but clever miners may find ways to make it worthwhile. These miners would like
+enough information to efficiently choose a profit-optimal ordered subset of the
+available messages.
+
+ Ethereum may benefit from mechanisms that allow a client to make a clear
+promise of income to the miners. This may take the form of a min_gas message
+parameter, which would make no promises about the execution runtime, but would
+guarantee a minimum income for the miner. If the potential CPU cost are low
+enough, this might provide enough information to allow miners to prioritize
+transactions appropriately.
+
+
 ## Links
 
 [Manifold RPC Inspector for Backbone Cabal](https://backbone-rpc.netlify.app/)
 
 [Provisional Public API](https://ybackbone.netlify.app/)
+
+Characterizing relationships between primary miners
+in Ethereum by analyzing on-chain transactions
+- arXiv:2010.07781v1 [cs.SI] 8 Oct 2020
+
+Quantifying Blockchain Extractable Value:
+How dark is the forest?
+- arXiv:2101.05511v2 [cs.CR] 15 Jan 2021
