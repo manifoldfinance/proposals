@@ -1,0 +1,31 @@
+  +--------+           +--------+             +--------+           +--------+     +-----------+
+  | sushi  |           |  user  |             | YCabal |           | rpc    |     | greypool  |
+  |  dapp  |           | agent  |             | txmgmt |           |  layer |     |           |
+  +--------+           +--------+             +--------+           +--------+     +-----+-----+
+      |                    |                      |                     |               |
+      |-----register------>|                      |                     |               |
+      |                    |                      |                     |               |
+      |              (user accepts)               |                     |               |
+      |                    |                      |                     |               |
+      |                    |<-setup push service->|                     |               |
+      |                    |                      |                     |  +--------+   |
+      |<---success---------|                      |                     +--|--------|---|
+      |                    |                      |                     |  |--------|   |
+      |<--activate service with PushService attributes----------------->|  |        |   |
+      |                    |                      |                     |  |        |   |
+      |                    |                      |<--push notification<---|        |   |
+      |                    |                      |   per service API   |  |        |   |
+      |                    |                      |                     |  |        |   |
+      |                    |             (match to user agent)          |  |        |   |
+      |                    |                      |                     |  |        |   |
+      |                    |<--push notification--|                     |  |        |   |
+      |                    | per service protocol |                     |  |        |   |
+      |                    |                      |                     |  |        |   |
+      |            (match to sushi )              |                     |  |        |   |
+      |                    |                      |                     |  |--------|   |
+      |<---system message--|                      |                     |               |
+      |                    |                      |                     |               |
+      |-------------------------- KAFKA MSGQUEUE----------------------->|<--------------|
+      |                    |                      |                     |
+      |<---------------------------Payload------------------------------|
+      |                    |                      |                     |
