@@ -1,6 +1,7 @@
 # YCabal
 
-> Monopolizing transaction flow for arbitrage batching with miner support
+> Monopolizing transaction flow for arbitrage batching with miner
+> support
 
 ## Overview
 
@@ -12,42 +13,52 @@ Version: Draft 0.3.0
 Timeframe: 60d
 </pre>
 
-This is a strategy that realizes profit by smart transaction batching for the purposes of arbitrage by controlling transaction ordering.
+This is a strategy that realizes profit by smart transaction batching
+for the purposes of arbitrage by controlling transaction ordering.
 
-Right now every user sends a transaction directly to the network mempool and thus give away the arbitrage, front-running, back-running opportunities to miners(or random bots).
+Right now every user sends a transaction directly to the network mempool
+and thus give away the arbitrage, front-running, back-running
+opportunities to miners(or random bots).
 
-YCabal creates a virtualized mempool (i.e. a MEV-relay network) that aggregates transactions (batching), such transactions include:
+YCabal creates a virtualized mempool (i.e. a MEV-relay network) that
+aggregates transactions (batching), such transactions include:
 
-DEX trades <br>
-Interactions with protocols <br>
-Auctions <br>
-etc <br>
+DEX trades <br> Interactions with protocols <br> Auctions <br> etc <br>
 
 #### TL;DR - Users can opt in and send transactions to YCabal and in return for not having to pay for gas for their transaction we batch process it and take the arbitrage profit from it. Risk by inventory price risk is carried by a Vault, where Vault depositers are returned the profit the YCabal realizes
 
 ## Efficiency by Aggregation
 
-By leveraging batching, miner transaction flow, and providing additional performant utilities (e.g. faster calculations for finalizing),
-we can realize the following potential avenues for realizing profitable activites:
+By leveraging batching, miner transaction flow, and providing additional
+performant utilities (e.g. faster calculations for finalizing), we can
+realize the following potential avenues for realizing profitable
+activites:
 
 - Meta Transaction Funtionality
-- Order trades in different directions sequentially to produce positive slippage
+- Order trades in different directions sequentially to produce positive
+  slippage
 - Backrun Trades
 - Frontrun Trades
 - At least 21k in the base cost on every transaction is saved
 
-> **If we have access to transactions before the network we can generate value because we can calculate future state, off-chain**
+> **If we have access to transactions before the network we can generate
+> value because we can calculate future state, off-chain**
 
-> Think of this as creating a Netting Settlement System (whereas blockchains are a real time gross settlement system)
+> Think of this as creating a Netting Settlement System (whereas
+> blockchains are a real time gross settlement system)
 
 ## User Capture
 
-The whole point of Backbone Cabal is to maximize profits from user actions which gets distributed for free to miners and bots.
-We intent to extract this value and provide these profits as `**cashback**` to users.
+The whole point of Backbone Cabal is to maximize profits from user
+actions which gets distributed for free to miners and bots. We intent to
+extract this value and provide these profits as `**cashback**` to users.
 
-**For example**: A SushiSwap trader who loses `X%` to slippage during his trade can now get `X-Y %` slippage on his trade, because we were able to backrun his trade and give him the arbitrage profits.
+**For example**: A SushiSwap trader who loses `X%` to slippage during
+his trade can now get `X-Y %` slippage on his trade, because we were
+able to backrun his trade and give him the arbitrage profits.
 
-Backbone Cabal gets better and better as more transactions flow because there is less uncertaintity about the future state of the network.
+Backbone Cabal gets better and better as more transactions flow because
+there is less uncertaintity about the future state of the network.
 
 ### Gas Free Trading
 
@@ -59,7 +70,8 @@ Profits can be rebated to end users
 
 ### Volume Mining
 
-Other protocols can join the network and turn their transaction flow into a book of bussines with our network of participants
+Other protocols can join the network and turn their transaction flow
+into a book of bussines with our network of participants
 
 <br>
 
@@ -68,20 +80,18 @@ Other protocols can join the network and turn their transaction flow into a book
 > UniSwapV2
 
 [skim**address**](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Pair.sol#L190-L195)
-lets anyone claim a positive discrepancy between the actual token balance in the contract and the reserve number stored in the Pair contract.
+lets anyone claim a positive discrepancy between the actual token
+balance in the contract and the reserve number stored in the Pair
+contract.
 
 ## Solution Set
 
-ArcherDAO <br>
-Manifold Finance <br>
-Kafka based JSON RPC and API Gateway <br>
-kdb+ <br>
+ArcherDAO <br> Manifold Finance <br> Kafka based JSON RPC and API
+Gateway <br> kdb+ <br>
 
 ## Attack Vectors against the Backbone
 
-DDoS <br>
-Exploits <br>
-Additional Disclosures forthcoming <br>
+DDoS <br> Exploits <br> Additional Disclosures forthcoming <br>
 
 ## Ecosystem Benefits
 
@@ -107,9 +117,11 @@ order = {
 }
 ```
 
-Now if the Cabal broadcasts this transaction with a arbitrage order, the transaction contains 2 orders:
+Now if the Cabal broadcasts this transaction with a arbitrage order, the
+transaction contains 2 orders:
 
-> Note: the transaction below is a mock up for the proposed _data fields_
+> Note: the transaction below is a mock up for the proposed _data
+> fields_
 
 ```jsx
 transactions = [
@@ -140,7 +152,8 @@ transactions = [
 ]
 ```
 
-The arbitrage profit generated by second order is sent to the `msg.sender` of the first order.
+The arbitrage profit generated by second order is sent to the
+`msg.sender` of the first order.
 
 The first order will still lose 5%(assumption) in slippage.
 
@@ -148,40 +161,40 @@ Arbitrage profits will rarely be more than the slippage loss.
 
 If someone front runs the transaction sent by the Cabal:
 
-1. They pay for the gas while post confirmation of transaction the fees for order1 goes to the relayer in the signed order.
+1. They pay for the gas while post confirmation of transaction the fees
+   for order1 goes to the relayer in the signed order.
 2. They lose 5% in slippage as our real user does.
 
 ## Engine
 
-YCabal uses a batch auction-based matching engine to execute orders. Batch auctions were
-chosen to reduce the impact of frontrunning on the exchange.
+YCabal uses a batch auction-based matching engine to execute orders.
+Batch auctions were chosen to reduce the impact of frontrunning on the
+exchange.
 
 1. All orders for the given market are collected.
 
 2. Orders beyond their time-in-force are cancelled.
 
-3. Orders are placed into separate lists by market side, and aggregate supply and
-   demand curves are calculated.
+3. Orders are placed into separate lists by market side, and aggregate
+   supply and demand curves are calculated.
 
-4. The matching engine discovers the price at which the aggregate supply and demand
-   curves cross, which yields the clearing price. If there is a horizontal cross - i.e., two
-   prices for which aggregate supply and demand are equal - then the clearing price is the
-   midpoint between the two prices.
+4. The matching engine discovers the price at which the aggregate supply
+   and demand curves cross, which yields the clearing price. If there is
+   a horizontal cross - i.e., two prices for which aggregate supply and
+   demand are equal - then the clearing price is the midpoint between
+   the two prices.
 
-5. If both sides of the market have equal volume, then all orders are completely filled. If
-   one side has more volume than the other, then the side with higher volume is rationed
-   pro-rata based on how much its volume exceeds the other side. For example, if
-   aggregate demand is 100 and aggregate supply is 90, then every order on the demand
+5. If both sides of the market have equal volume, then all orders are
+   completely filled. If one side has more volume than the other, then
+   the side with higher volume is rationed pro-rata based on how much
+   its volume exceeds the other side. For example, if aggregate demand
+   is 100 and aggregate supply is 90, then every order on the demand
    side of the market will be matched 90%.
 
-Orders are sorted based on their price, and order ID. Order IDs are generated at post time, and
-is the only part of the matching engine that is time-dependent. However, the oldest order IDs
-are matched first so there is no incentive to post an order ahead of someone else’s.
-
-
-
-
-
+Orders are sorted based on their price, and order ID. Order IDs are
+generated at post time, and is the only part of the matching engine that
+is time-dependent. However, the oldest order IDs are matched first so
+there is no incentive to post an order ahead of someone else’s.
 
 #### Relative mining gain
 
@@ -191,77 +204,96 @@ $$
 R M G=E\left[\lim _{T \rightarrow \infty} \frac{\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(a)}}{\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(a)}+\sum_{\tau=t}^{t+T-1} r_{\tau+1}^{(h)}}\right]
 $$
 
-
 #### Tuple of rewards issued in block interval.
+
 $$
 \left(r_{t}^{(a)}, r_{t}^{(h)}\right)
 $$
 
-The tuple of rewards issued in the block interval $$ t,  T $$ is the  size of the observing window. The objective of the adversary is to maximize this relative mining gain.
+The tuple of rewards issued in the block interval $$ t, T $$ is the size
+of the observing window. The objective of the adversary is to maximize
+this relative mining gain.
 
+A **mined block interval** is different from a valid block interval. A
+valid block interval separates two valid blocks that are ultimately
+adopted by the bl ockchain.
 
-A **mined block interval** is different from a valid block interval. A valid block interval separates two valid blocks that are ultimately adopted by the
-bl ockchain. 
-
-The average duration of a valid block interval is a constant in many blockchain systems (e.g., 10 min in bitcoin). The average duration of the **valid block interval** is deﬁned by the system designer and  its constancy is maintained by adjusting the mining target. A mined block interval separated two mined (by either the adversary of the honest network), regardless of whether the blocks becomes valid later.
+The average duration of a valid block interval is a constant in many
+blockchain systems (e.g., 10 min in bitcoin). The average duration of
+the **valid block interval** is deﬁned by the system designer and its
+constancy is maintained by adjusting the mining target. A mined block
+interval separated two mined (by either the adversary of the honest
+network), regardless of whether the blocks becomes valid later.
 
 - valid block interval
 - mined block interval
 
+### Defining 'driver' nodes
 
-### Defining 'driver' nodes 
-
-> These are points in the network graph in which they have a critical position 
+> These are points in the network graph in which they have a critical
+> position
 
 $$
 \frac{d m (t)}{d t}=A m (t)+B u (t)
 $$
 
-Where $m (t)=\left(m_{1}(t), \ldots m_{N}(t)\right)^{T}$  are the balances of the  mining addresses of the system,  $A$ is an $N \times N$ matrix that defines the 
-strength of the  economic  relationships between miners. 
+Where $m (t)=\left(m_{1}(t), \ldots m_{N}(t)\right)^{T}$ are the
+balances of the mining addresses of the system, $A$ is an $N \times N$
+matrix that defines the strength of the economic relationships between
+miners.
 
-$B$ is an $N \times M(M \leq N)$ matrix that identifies which of the 
-(driver) nodes are controlled by an external controller via a time-dependent vector 
+$B$ is an $N \times M(M \leq N)$ matrix that identifies which of the
+(driver) nodes are controlled by an external controller via a
+time-dependent vector
 
 $u (t)=\left(u_{1}(t), \ldots u_{M}(t)\right)^{T}$
 
-This analysis showes that the minimum number of driver nodes needed to control the system described above is exactly the set of ’unmatched nodes’ for a ’maximum matching’ as long as all there are paths from the unmatched nodes to the matched ones. A ’maximum matching’ is the maximal set of edges that do not share start or end nodes, while a node is said to be matched if an edge in the ’maximum matching’ points to it; otherwise, it is said to be unmatched. Our results yield that under this model and given the topology of the transaction network, 1, 945 nodes of the GWCC would need to be controlled (47% of the hashing power of the GWCC), in order to potentially have full control over it.
+This analysis showes that the minimum number of driver nodes needed to
+control the system described above is exactly the set of ’unmatched
+nodes’ for a ’maximum matching’ as long as all there are paths from the
+unmatched nodes to the matched ones. A ’maximum matching’ is the maximal
+set of edges that do not share start or end nodes, while a node is said
+to be matched if an edge in the ’maximum matching’ points to it;
+otherwise, it is said to be unmatched. Our results yield that under this
+model and given the topology of the transaction network, 1, 945 nodes of
+the GWCC would need to be controlled (47% of the hashing power of the
+GWCC), in order to potentially have full control over it.
 
-### Block Extrracted Value / Miner Extracted Value 
+### Block Extrracted Value / Miner Extracted Value
 
-Transactions are not actually independent: it may be necessary to include some
-less-profitable or even unprofitable transactions to increase the profitability
-of a subsequent transaction.
+Transactions are not actually independent: it may be necessary to
+include some less-profitable or even unprofitable transactions to
+increase the profitability of a subsequent transaction.
 
-For example, since transactions include a per-sender sequence number, and these
-must be applied in strictly incrementing order, the miner could be faced with
-one high-cost low-income transaction (from=ABC seqnum=5), followed by a low-cost
-high-income transaction (from=ABC seqnum=6). The miner cannot legally include
-the second message without also including the first. They must evaluate the
-profitability of the two as an indivisible pair.
+For example, since transactions include a per-sender sequence number,
+and these must be applied in strictly incrementing order, the miner
+could be faced with one high-cost low-income transaction (from=ABC
+seqnum=5), followed by a low-cost high-income transaction (from=ABC
+seqnum=6). The miner cannot legally include the second message without
+also including the first. They must evaluate the profitability of the
+two as an indivisible pair.
 
-Adjusting the order of different-sender messages may improve profits. Since
-exceptions forfeit all gas to the miner, if there is an ordering of messages
-that forces an exception, the miner would prefer exception-causing sequences
-over ones that complete normally. Likewise, a sequence that causes execution to
-consume more gas will yield more income than one which completes quickly (and
-more profit, assuming the actual CPU costs are low). So, more sophisticated
-miners may do more work: computing an optimal ordered subset, not merely an
-optimal subset.
+Adjusting the order of different-sender messages may improve profits.
+Since exceptions forfeit all gas to the miner, if there is an ordering
+of messages that forces an exception, the miner would prefer
+exception-causing sequences over ones that complete normally. Likewise,
+a sequence that causes execution to consume more gas will yield more
+income than one which completes quickly (and more profit, assuming the
+actual CPU costs are low). So, more sophisticated miners may do more
+work: computing an optimal ordered subset, not merely an optimal subset.
 
-The costs of doing this analysis must not exceed the gains to be had. Finding an
-optimal ordered subset is even more expensive (O(n!)) than an unordered subset,
-but clever miners may find ways to make it worthwhile. These miners would like
-enough information to efficiently choose a profit-optimal ordered subset of the
-available messages.
+The costs of doing this analysis must not exceed the gains to be had.
+Finding an optimal ordered subset is even more expensive (O(n!)) than an
+unordered subset, but clever miners may find ways to make it worthwhile.
+These miners would like enough information to efficiently choose a
+profit-optimal ordered subset of the available messages.
 
- Ethereum may benefit from mechanisms that allow a client to make a clear
-promise of income to the miners. This may take the form of a min_gas message
-parameter, which would make no promises about the execution runtime, but would
-guarantee a minimum income for the miner. If the potential CPU cost are low
-enough, this might provide enough information to allow miners to prioritize
-transactions appropriately.
-
+Ethereum may benefit from mechanisms that allow a client to make a clear
+promise of income to the miners. This may take the form of a min_gas
+message parameter, which would make no promises about the execution
+runtime, but would guarantee a minimum income for the miner. If the
+potential CPU cost are low enough, this might provide enough information
+to allow miners to prioritize transactions appropriately.
 
 ## Links
 
@@ -269,10 +301,11 @@ transactions appropriately.
 
 [Provisional Public API](https://ybackbone.netlify.app/)
 
-Characterizing relationships between primary miners
-in Ethereum by analyzing on-chain transactions
+Characterizing relationships between primary miners in Ethereum by
+analyzing on-chain transactions
+
 - arXiv:2010.07781v1 [cs.SI] 8 Oct 2020
 
-Quantifying Blockchain Extractable Value:
-How dark is the forest?
+Quantifying Blockchain Extractable Value: How dark is the forest?
+
 - arXiv:2101.05511v2 [cs.CR] 15 Jan 2021

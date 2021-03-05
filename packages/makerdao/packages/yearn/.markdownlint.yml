@@ -41,11 +41,11 @@ no-duplicate-heading:
 
 # MD025
 single-title:
-  front_matter_title: ''
+  front_matter_title: ""
 
 # MD026
 no-trailing-punctuation:
-  punctuation: '.,;:!。，；：！'
+  punctuation: ".,;:!。，；：！"
 
 # MD027
 no-multiple-space-blockquote: true
