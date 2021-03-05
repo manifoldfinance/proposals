@@ -21,15 +21,18 @@ Replaces:
 
 ## Sentence Summary
 
-- A description of what the Maker Improvement Proposal (MIP) is focused on. Suggest 30 words max.
+- A description of what the Maker Improvement Proposal (MIP) is focused
+  on. Suggest 30 words max.
 
 ## Paragraph Summary
 
-- A description of what the Maker Improvement Proposal (MIP) is focused on. Suggest 100 words max.
+- A description of what the Maker Improvement Proposal (MIP) is focused
+  on. Suggest 100 words max.
 
 ## Component Summary
 
-- A description of the purpose of each component in the MIP . Suggest 30 words max per component.
+- A description of the purpose of each component in the MIP . Suggest 30
+  words max per component.
 
 ## Motivation
 
@@ -37,4 +40,5 @@ Replaces:
 
 ## Specification / Proposal Details
 
-- Proposed process standard details - describes the new process or feature and the problem it is solving.
+- Proposed process standard details - describes the new process or
+  feature and the problem it is solving.
