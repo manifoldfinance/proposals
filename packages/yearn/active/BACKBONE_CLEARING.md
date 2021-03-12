@@ -58,16 +58,22 @@ a temporary balance for each user that starts at zero. Then by using the
 commutative property of addition, we can add the temporary balances
 directly to the user balances.
 
-temporary_balances = {} for (trade in trades) { quantity :=
-trade.quantity cost := trade.quantity \* trade.price
-temporary_balances[trade.buyer]['quote'] -= cost
-temporary_balances[trade.buyer]['base'] += quantity
-Temporary_balances[trade.seller]['quote'] += cost
-temporary_balances[trade.seller]['base'] -= quantity }
+```swift
+temporary_balances = {} for (trade in trades) { 
+ quantity :=
+    trade.quantity cost := trade.quantity \* trade.price
+    temporary_balances[trade.buyer]['quote'] -= cost
+    temporary_balances[trade.buyer]['base'] += quantity
+    temporary_balances[trade.seller]['quote'] += cost
+    temporary_balances[trade.seller]['base'] -= quantity 
+}
 
-for (user in keys(temporary_balances)) { real_balances[user]['quote'] +=
-temporary_balances[user]['quote'] real_balances[user]['base'] +=
-temporary_balances[user]['base'] }
+for (user in keys(temporary_balances)) { 
+  real_balances[user]['quote'] +=
+    temporary_balances[user]['quote'] real_balances[user]['base'] +=
+    temporary_balances[user]['base']
+}
+```
 
 In the above pseudocode, temporary_balances is what the BACKBONE refers
 to as a settlement group. The settlement group is a transformation of
@@ -89,35 +95,35 @@ The BACKBONE takes a new approach to secure settlements. Off-chain, the
 user signs a trading limit with the exchange. The trading limit has the
 following attributes:
 
-min_quote_qty: The smallest value the quote balance can be updated to.
+`min_quote_qty`: The smallest value the quote balance can be updated to.
 Limits the quantity that can be purchased.
 
-min_base_qty: The smallest value the base balance can be updated to.
+`min_base_qty`: The smallest value the base balance can be updated to.
 Limits the quantity that can be sold.
 
-max_long_price: The maximum average price allowed to purchase the asset.
+`max_long_price`: The maximum average price allowed to purchase the asset.
 
-min_short_price: The minimum average price allowed to sell the asset.
+`min_short_price`: The minimum average price allowed to sell the asset.
 
-quote_shift: A value used to shift the quote_quantity used in
+`quote_shift`: A value used to shift the quote_quantity used in
 calculation to realize a loss / profit in the quote asset.
 
-base_shift: A value used to shift the base_quantity used in calculation
+`base_shift`: A value used to shift the base_quantity used in calculation
 to realize a loss / profit in the base asset.
 
 As an example, here are a few values with a description of the limit.
 
-min_quote_qty: -10 min_base_qty: 0 max_long_price: 123.45
-min_short_price: 99999999999
+`min_quote_qty`: -10 min_base_qty: 0 max_long_price: 123.45
+`min_short_price`: 99999999999
 
 Can spend upto 10 USD on ETH at a maximum price of 123.45 USD/ETH
 
-min_quote_qty: 0 min_base_qty: -0.3 max_long_price: 0 min_short_price:
+`min_quote_qty`: 0 min_base_qty: -0.3 max_long_price: 0 min_short_price:
 100.0
 
 Can sell upto 0.3 ETH at a minimum price of 100.00 USD/ETH.
 
-min_quote_qty: -10 min_base_qty: -0.3 max_long_price: 123.45
+`min_quote_qty`: -10 min_base_qty: -0.3 max_long_price: 123.45
 min_short_price: 100.0
 
 Can spend upto 10 USD on ETH at a maximum price of 123.45 USD/ETH or
@@ -140,9 +146,13 @@ limit.min_base_qty) REVERT;
 if (base_qty >= 0 && quote_qty >= 0) COMMIT; if (base_qty <= 0 &&
 quote_qty <= 0) REVERT;
 
+#### long position 
+
 /_ Long position _/ if (base_qty > 0) { current_price :=
 (-quote_qty \* 100000000) / base_qty; if (current_price <=
 limit.max_long_price) COMMIT; REVERT; }
+
+#### short position
 
 /_ Short position _/ else { current_price := (quote_qty \* 100000000) /
 -base_qty; if (current_price >= asset_state.min_short_price) COMMIT;
@@ -173,4 +183,5 @@ In settlement, the BACKBONE verifies the settlement group sums to zero
 and that the resulting balance of each user fits within their trading
 limits. The BACKBONE does not verify that the settlement groups
 represent the trading activity on the exchange. For example, if a user
-signs a trading
+signs a trading agreement with Manifold Finance or the underlying 
+venue/protocol (e.g. Sushiswap).
