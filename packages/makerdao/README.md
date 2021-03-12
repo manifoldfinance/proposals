@@ -1,6 +1,18 @@
+<!-- START pkgtoc, keep to allow update -->
+
+**Packages**
+
+| Version                                                                                             | Package                                                                                  |
+| :-------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+| ![manifold-proposals npm badge)](https://img.shields.io/npm/v/manifold-proposals.svg?colorB=cb3837) | **[manifold-proposals](packages/proposals/)**<br />manifold finance governance proposals |
+
+<!-- END pkgtoc, keep to allow update -->
+
 ---
-name: Proposals and Design Documentation
-about: Strategies, Proposals, Governance, etc
+
+name: Proposals and Design Documentation about: Strategies, Proposals,
+Governance, etc
+
 ---
 
 ## Manifold Proposals
@@ -14,27 +26,6 @@ Proposals have 3 major stages
 3. Execution and Operational
 
 ### Governance Procedures
-
-> Ref. files for other projects
-
-```
-├── aave
-│   ├── aip-X.md
-│   └── package.json
-├── makerdao
-│   ├── General-MIP-Template.md
-│   ├── Technical-MIP-Template.md
-│   ├── mip0.md
-│   └── package.json
-├── mev
-│   ├── FRP-template.md
-│   └── package.json
-└── yearn
-    ├── BACKBONE_CABAL.md
-    ├── YIP_template.md
-    └── package.json
-
-```
 
 ## Legal Disclaimer
 
