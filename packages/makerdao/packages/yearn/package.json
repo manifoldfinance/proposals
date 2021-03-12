@@ -1,7 +1,7 @@
 {
   "name": "@manifoldfinance/proposals",
   "version": "1.0.0",
-  "description": "--- name: Proposals and Design Documentation about: Strategies, Proposals, Governance, etc ---",
+  "description": "governance proposals",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/manifoldfinance/proposals.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [ "governance", "proposals", "defi", "ethereum"],
+  "author": "SEE CONTRIBUTORS",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/manifoldfinance/proposals/issues"
