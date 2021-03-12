@@ -1,20 +1,3 @@
-<!-- START pkgtoc, keep to allow update -->
-
-**Packages**
-
-| Version                                                                                             | Package                                                                                  |
-| :-------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| ![manifold-proposals npm badge)](https://img.shields.io/npm/v/manifold-proposals.svg?colorB=cb3837) | **[manifold-proposals](packages/proposals/)**<br />manifold finance governance proposals |
-
-<!-- END pkgtoc, keep to allow update -->
-
----
-
-name: Proposals and Design Documentation about: Strategies, Proposals,
-Governance, etc
-
----
-
 ## Manifold Proposals
 
 Proposals have 3 major stages
@@ -26,6 +9,23 @@ Proposals have 3 major stages
 3. Execution and Operational
 
 ### Governance Procedures
+
+**Packages**
+
+| Package                                              | Description                           |
+| :--------------------------------------------------- | :------------------------------------ |
+| **[@manifoldfinance/proposals](packages/yearn/)**    | governance proposals                  |
+| **[@manifoldfinance/proposals](packages/makerdao/)** | governance proposals                  |
+| **[manifold-proposals](packages/proposals/)**        | manifold finance governance proposals |
+
+<!-- END pkgtoc, keep to allow update -->
+
+---
+
+name: Proposals and Design Documentation about: Strategies, Proposals,
+Governance, etc
+
+---
 
 ## Legal Disclaimer
 
