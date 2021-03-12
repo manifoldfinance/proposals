@@ -1,0 +1,32 @@
+{
+  "name": "manifold-proposals",
+  "version": "0.0.0",
+  "description": "manifold finance governance proposals",
+  "keywords": [
+    "proposals",
+    "governance",
+    "ethereum",
+    "defi"
+  ],
+  "author": "sam <sam@freighttrust.com>",
+  "homepage": "https://github.com/manifoldfinance/proposals/tree/master/packages/proposals#readme",
+  "license": "Apache-2.0",
+  "main": "lib/proposals.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manifoldfinance/proposals.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/manifoldfinance/proposals/issues"
+  }
+}

@@ -4,13 +4,19 @@
   "description": "governance proposals",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+   "lint": "npx prettier --config .prettierrc --write ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manifoldfinance/proposals.git"
   },
-  "keywords": [ "governance", "proposals", "defi", "ethereum"],
+  "keywords": [
+    "governance",
+    "proposals",
+    "defi",
+    "ethereum"
+  ],
   "author": "SEE CONTRIBUTORS",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
@@ -18,6 +24,11 @@
   },
   "homepage": "https://github.com/manifoldfinance/proposals#readme",
   "devDependencies": {
+    "lerna": "^3.22.1",
+    "markdownlint": "^0.23.1",
+    "markdownlint-cli2": "^0.0.14",
+    "pkgtoc": "^0.5.1",
+    "prettier": "^2.2.1",
     "semantic-release": "^17.3.1"
   }
 }

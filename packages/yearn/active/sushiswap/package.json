@@ -1,0 +1,8 @@
+{
+  "name": "manifold-sushiswap-proposal",
+  "version": "0.0.0",
+  "description": "backbone cabal sushiswap proposal",
+  "main": "index.js",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true
+}
