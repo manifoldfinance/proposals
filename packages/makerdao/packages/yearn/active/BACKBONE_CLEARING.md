@@ -6,7 +6,8 @@ version: draft
 
 ## Abstract
 
-> `BACKBONE` is a _placeholder_ name for now: this is seperate from Backbone Cabal
+> `BACKBONE` is a _placeholder_ name for now: this is seperate from
+> Backbone Cabal
 
 A protocol that provides secure, high throughput settlement on the
 Ethereum Blockchain for central order book exchanges. Processing every
@@ -61,16 +62,16 @@ commutative property of addition, we can add the temporary balances
 directly to the user balances.
 
 ```swift
-temporary_balances = {} for (trade in trades) { 
+temporary_balances = {} for (trade in trades) {
  quantity :=
     trade.quantity cost := trade.quantity \* trade.price
     temporary_balances[trade.buyer]['quote'] -= cost
     temporary_balances[trade.buyer]['base'] += quantity
     temporary_balances[trade.seller]['quote'] += cost
-    temporary_balances[trade.seller]['base'] -= quantity 
+    temporary_balances[trade.seller]['base'] -= quantity
 }
 
-for (user in keys(temporary_balances)) { 
+for (user in keys(temporary_balances)) {
   real_balances[user]['quote'] +=
     temporary_balances[user]['quote'] real_balances[user]['base'] +=
     temporary_balances[user]['base']
@@ -103,15 +104,16 @@ Limits the quantity that can be purchased.
 `min_base_qty`: The smallest value the base balance can be updated to.
 Limits the quantity that can be sold.
 
-`max_long_price`: The maximum average price allowed to purchase the asset.
+`max_long_price`: The maximum average price allowed to purchase the
+asset.
 
 `min_short_price`: The minimum average price allowed to sell the asset.
 
 `quote_shift`: A value used to shift the quote_quantity used in
 calculation to realize a loss / profit in the quote asset.
 
-`base_shift`: A value used to shift the base_quantity used in calculation
-to realize a loss / profit in the base asset.
+`base_shift`: A value used to shift the base_quantity used in
+calculation to realize a loss / profit in the base asset.
 
 As an example, here are a few values with a description of the limit.
 
@@ -148,7 +150,7 @@ limit.min_base_qty) REVERT;
 if (base_qty >= 0 && quote_qty >= 0) COMMIT; if (base_qty <= 0 &&
 quote_qty <= 0) REVERT;
 
-#### long position 
+#### long position
 
 /_ Long position _/ if (base_qty > 0) { current_price :=
 (-quote_qty \* 100000000) / base_qty; if (current_price <=
@@ -185,5 +187,5 @@ In settlement, the BACKBONE verifies the settlement group sums to zero
 and that the resulting balance of each user fits within their trading
 limits. The BACKBONE does not verify that the settlement groups
 represent the trading activity on the exchange. For example, if a user
-signs a trading agreement with Manifold Finance or the underlying 
+signs a trading agreement with Manifold Finance or the underlying
 venue/protocol (e.g. Sushiswap).
