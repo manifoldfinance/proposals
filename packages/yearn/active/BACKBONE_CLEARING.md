@@ -6,6 +6,8 @@ version: draft
 
 ## Abstract
 
+> `BACKBONE` is a _placeholder_ name for now: this is seperate from Backbone Cabal
+
 A protocol that provides secure, high throughput settlement on the
 Ethereum Blockchain for central order book exchanges. Processing every
 trade individually on the Blockchain is too slow and costly for modern
