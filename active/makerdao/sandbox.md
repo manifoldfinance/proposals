@@ -3,7 +3,7 @@
 ## Preamble
 
 ```
-MIP#: 
+MIP#:
 Title: MakerDAO DeFi Sandbox
 Author(s):
 Contributors:
