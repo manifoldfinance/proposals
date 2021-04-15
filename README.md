@@ -14,8 +14,8 @@ Proposals have 3 major stages
 
 | Package                                              | Description                           |
 | :--------------------------------------------------- | :------------------------------------ |
-| **[@manifoldfinance/proposals](packages/yearn/)**    | governance proposals                  |
-| **[@manifoldfinance/proposals](packages/makerdao/)** | governance proposals                  |
+| **[@manifoldfinance/yearn](packages/yearn/)**    | governance proposals                  |
+| **[@manifoldfinance/makerdao](packages/makerdao/)** | governance proposals                  |
 | **[manifold-proposals](packages/proposals/)**        | manifold finance governance proposals |
 
 <!-- END pkgtoc, keep to allow update -->
